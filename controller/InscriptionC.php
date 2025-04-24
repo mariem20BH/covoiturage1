@@ -35,7 +35,7 @@ class InscriptionC {
     }
 
     
-  // Méthode modifiée pour retourner l'ID après insertion
+  
   public function AjouterInscription($inscription) {
     $db = config::getConnexion();
 
@@ -50,7 +50,7 @@ class InscriptionC {
             'o' => $inscription->getDateReservation(),
             'm' => $inscription->getPaiement(),
         ]);
-        return $db->lastInsertId(); // Cette ligne est essentielle pour récupérer l'ID
+        return $db->lastInsertId(); 
     } catch (Exception $e) {
         die('Error: ' . $e->getMessage());
     }
@@ -100,9 +100,21 @@ class InscriptionC {
         return false;
     }
 }
-
+ublic function rechercherInscriptionParID($id) {
+    $sql = "SELECT * FROM inscription WHERE ID = :id";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->bindValue(':id', $id);
+        $query->execute();
+        return $query->fetch();
+    } catch (PDOException $e) {
+        die('Erreur: '.$e->getMessage());
+    }
+}
    
 }
+
 
 
 

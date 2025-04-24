@@ -122,12 +122,87 @@
 
        
 
+        <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
- 
+require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
+require_once 'C:/xampp/htdocs/webproj/model/Trajet.php';
+require_once 'C:/xampp/htdocs/webproj/config.php';
+$pdo = config::getConnexion();
+
+// ▶ Ajouter Trajet
+if (isset($_POST['addTrajet'])) {
+    $ID_Inscription = $_POST['ID_Inscription'];
+    $Adressedepart = $_POST['Adresse_Depart'];
+    $Adressearrivee = $_POST['Adresse_Arrivee'];
+    $NombrePlaces = $_POST['Nombre_Places'];
+    $Prix = $_POST['Prix'];
+    $Distance = $_POST['Distance'];
+    $Duree = $_POST['Duree'];
+
+    $error = "";
+
+    // 1. Vérifie que l'ID existe dans la table inscription
+    $stmt1 = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE ID = ?");
+    $stmt1->execute([$ID_Inscription]);
+    $inscriptionExiste = $stmt1->fetchColumn() > 0;
+
+    // 2. Vérifie que l'ID n'existe pas encore dans la table trajet
+    $stmt2 = $pdo->prepare("SELECT COUNT(*) FROM trajet WHERE ID_Inscription = ?");
+    $stmt2->execute([$ID_Inscription]);
+    $trajetDejaExistant = $stmt2->fetchColumn() > 0;
+
+    // Validation
+    if (!$inscriptionExiste) {
+        $error = "❌ ID d'inscription introuvable.";
+    } elseif ($trajetDejaExistant) {
+        $error = "❌ Un trajet est déjà associé à cette inscription.";
+    } elseif (strlen($Adressearrivee) < 3) {
+        $error = "❌ L'adresse d'arrivée doit contenir au moins 3 caractères.";
+    } elseif (!is_numeric($NombrePlaces) || $NombrePlaces < 1) {
+        $error = "❌ Le nombre de places doit être supérieur ou égal à 1.";
+    } elseif (!is_numeric($Prix)) {
+        $error = "❌ Le prix doit être un nombre.";
+    }
+
+    // Gestion des erreurs
+    if ($error) {
+        $_SESSION['error_message'] = $error;
+        header("Location: covoiturage.php?error=1");
+        exit();
+    }
+
+    // Ajout du trajet
+    $trajet = new Trajet($ID_Inscription, $Adressedepart, $Adressearrivee, $NombrePlaces, $Prix, $Distance, $Duree);
+    $trajetC = new TrajetC();
+    $result = $trajetC->ajouterTrajetAvecRetourID($trajet);
+
+    if ($result) {
+        $_SESSION['last_trajet_id'] = $result;
+        header("Location: covoiturage.php?success=1&id=$result");
+    } else {
+        $_SESSION['error_message'] = "❌ Une erreur s’est produite lors de l’ajout.";
+        header("Location: covoiturage.php?error=1");
+    }
+    exit();
+}
+
+// ▶ Suppression
+if (isset($_POST['deleteTrajet'])) {
+    $id = $_POST['delete_id'];
+    $trajetC = new TrajetC();
+    $trajetC->DeleteTrajet($id);
+    unset($_SESSION['last_trajet_id']);
+    header("Location: covoiturage.php?deleted=true");
+    exit();
+}
+?>
 
 
         <?php
-session_start();
+
 require_once 'C:/xampp/htdocs/webproj/controller/InscriptionC.php';
 require_once 'C:/xampp/htdocs/webproj/model/Inscription.php';
 require_once 'C:/xampp/htdocs/webproj/config.php'; // connexion centralisée
@@ -197,6 +272,18 @@ if (isset($_GET['deleted']) && $_GET['deleted'] === 'true') {
     echo "<script>alert('Inscription supprimée avec succès.');</script>";
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -332,6 +419,225 @@ if (isset($_GET['deleted']) && $_GET['deleted'] === 'true') {
 </head>
 <body>
 
+<?php if (isset($_SESSION['error_message'])): ?>
+    <div id="errorMessage" class="alert alert-danger">
+        <?= $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+    </div>
+<?php endif; ?>
+
+
+
+
+<!-- Formulaire d'ajout de trajet -->
+<form action="covoiturage.php" method="post">
+
+
+  <h3>Ajouter un Trajet</h3>
+  <input type="number" name="ID_Inscription" placeholder="ID Inscription" required class="form-control mb-2">
+  <select name="Adresse_Depart" required class="form-control mb-2">
+    <option value="">Adresse_Depart</option>
+    <option value="Parking de l'aéroport">Parking de l'aéroport</option>
+    <option value="Parking Tunis City">Parking Tunis City</option>
+    <option value="Parking Municipal">Parking Municipal</option>
+    <option value="Centre Urbain Nord">Centre Urbain Nord</option>
+  </select>
+  <input type="text" name="Adresse_Arrivee" placeholder="Adresse Arrivée" required class="form-control mb-2">
+  <input type="number" name="Nombre_Places" placeholder="Nombre de places" required class="form-control mb-2">
+  <input type="number" name="Prix" placeholder="Prix" step="0.1" required class="form-control mb-2">
+  <input type="number" name="Distance" placeholder="Distance (km)" required class="form-control mb-2">
+  <input type="text" name="Duree" placeholder="Durée estimée" required class="form-control mb-2">
+  <div class="form-group" style="display: flex; justify-content: space-between;">
+                    <button type="submit" name="addTrajet" class="btn btn-success">Ajouter</button>
+                </div>
+</form>
+<?php if (isset($_SESSION['last_trajet_id'])): ?>
+    <form method="post" style="margin-top: 20px;">
+        <input type="hidden" name="delete_id" value="<?= $_SESSION['last_trajet_id'] ?>">
+        <button type="submit" name="deleteTrajet" class="btn btn-danger">❌ Supprimer mon trajet</button>
+    </form>
+<?php endif; ?>
+
+
+
+<!-- Recherche -->
+<form method="GET" action="covoiturage.php" style="margin-top: 40px;">
+    <h2 class="text-center text-primary mb-4">🔍 Rechercher votre trajet</h2>
+    
+    <!-- Champ de recherche -->
+    <div class="form-group">
+        <label for="searchTel">ID Inscription</label>
+        <input type="number" name="searchTel" id="searchTel" class="form-control"  placeholder="entrer votre id ">
+    </div>
+    
+    <!-- Bouton de soumission -->
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </div>
+</form>
+
+
+<!-- Lien vers Bootstrap 4 -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+<?php
+// Affichage du formulaire de modification
+if (isset($_GET['searchTel'])) {
+    $searchTel = $_GET['searchTel'];
+
+    $stmt = $pdo->prepare("SELECT * FROM inscription WHERE ID = ?");
+    $stmt->execute([$searchTel]);
+    $trajet = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($trajet) {
+?>
+
+<div class="container">
+    <div class="form-container">
+        <h2>✏️ Modifier votre Trajet</h2>
+        <form method="POST" action="covoiturage.php">
+
+            <div class="form-group">
+                <label for="ID_Inscription">ID Inscription</label>
+                <input type="number" id="ID_Inscription" name="ID_Inscription"
+                    value="<?= htmlspecialchars($trajet['ID']) ?>" 
+                    class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+    <label for="Adresse_Depart">Adresse_Depart</label>
+    <select id="Adresse_Depart" name="Adresse_Depart" class="form-control" required>
+        <option value="">Sélectionnez une adresse</option>
+        <option value="Parking de l'aéroport" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking de l'aéroport") ? 'selected' : '' ?>>Parking de l'aéroport</option>
+        <option value="Parking Tunis City" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking Tunis City") ? 'selected' : '' ?>>Parking Tunis City</option>
+        <option value="Parking Municipal" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking Municipal") ? 'selected' : '' ?>>Parking Municipal</option>
+        <option value="Centre Urbain Nord" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Centre Urbain Nord") ? 'selected' : '' ?>>Centre Urbain Nord</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="Adresse_Arrivee">Adresse d'arrivée</label>
+    <input type="text" id="Adresse_Arrivee" name="Adresse_Arrivee" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="Nombre_Places">Nombre de places</label>
+    <input type="number" id="Nombre_Places" name="Nombre_Places" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="Prix">Prix (DT)</label>
+    <input type="number" id="Prix" name="Prix" step="0.1" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="Distance">Distance (km)</label>
+    <input type="number" id="Distance" name="Distance" class="form-control" required>
+</div>
+
+<div class="form-group">
+    <label for="Duree">Durée (minutes)</label>
+    <input type="number" id="Duree" name="Duree" class="form-control" required>
+</div>
+
+
+<button type="submit" name="submit_update" class="btn-submit">✅ Modifier</button>
+
+            
+        </form>
+    </div>
+</div>
+
+<?php
+    } else {
+        echo "<p style='color:red;'>Aucune inscription trouvée avec ce numéro.</p>";
+    }
+}
+?>
+
+
+
+<?php
+
+
+if (isset($_POST['submit_update'])) {
+  $ID_Inscription = $_POST['ID_Inscription'];
+  $Adressedepart = $_POST['Adresse_Depart'];
+  $Adressearrivee = $_POST['Adresse_Arrivee'];
+  $NombrePlaces = $_POST['Nombre_Places'];
+  $Prix = $_POST['Prix'];
+  $Distance = $_POST['Distance'];
+  $Duree = $_POST['Duree'];
+
+  $check = $pdo->prepare("SELECT COUNT(*) FROM trajet WHERE ID_Inscription = ?");
+  $check->execute([$ID_Inscription]);
+
+  if ($check->fetchColumn() > 0) {
+      $update = $pdo->prepare("UPDATE trajet SET 
+          Adresse_Depart = ?, 
+          Adresse_Arrivee = ?, 
+          Nombre_Places = ?, 
+          Prix = ?, 
+          Distance = ?, 
+          Duree = ? 
+          WHERE ID_Inscription = ?");
+
+      $update->execute([
+          $Adressedepart,
+          $Adressearrivee,
+          $NombrePlaces,
+          $Prix,
+          $Distance,
+          $Duree,
+          $ID_Inscription
+      ]);
+
+      echo "<script>alert('Trajet mis à jour avec succès.'); window.location.href='covoiturage.php';</script>";
+  } else {
+      echo "<script>alert('Erreur : ID Inscription introuvable.');</script>";
+  }
+}
+
+
+
+?>
+
+
+<!-- Lien vers Bootstrap 4 -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const messageDiv = document.getElementById("message");
+
+  if (urlParams.has("success")) {
+    const success = urlParams.get("success");
+    messageDiv.style.display = "block";
+    messageDiv.style.color = success === "1" ? "green" : "red";
+    messageDiv.innerText = success === "1" ? "Ajout réussi !" : "Échec de l'ajout !";
+
+    setTimeout(() => {
+      messageDiv.style.display = "none";
+    }, 4000);
+  }
+</script>
+
+
+
 <!-- Formulaire d'ajout -->
 <div class="form-container mt-4">
     <h4>🏭 Inscription de Covoiturage</h4>
@@ -418,6 +724,10 @@ if (isset($_GET['deleted']) && $_GET['deleted'] === 'true') {
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
+
+
+
+
 <?php
 // Affichage du formulaire de modification
 if (isset($_GET['searchTel'])) {
@@ -478,7 +788,7 @@ if (isset($_GET['searchTel'])) {
 
 // Traitement de la mise à jour
 if (isset($_POST['submit_update'])) {
-    $id = $_POST['id_inscription'];
+    $id = $_POST['ID_inscription'];
     $telephone = $_POST['Telephone'];
     $categorie = $_POST['Categorie'];
     $paiement = $_POST['Paiement'];
@@ -495,6 +805,28 @@ if (isset($_POST['submit_update'])) {
     }
 }
 ?>
+
+
+<!-- Lien vers Bootstrap 4 -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<script>
+    // Masquer le message d'erreur après 4 secondes
+    setTimeout(function() {
+        var msg = document.getElementById('errorMessage');
+        if (msg) {
+            msg.style.display = 'none';
+        }
+    }, 4000);
+</script>
+
+
+
+</body>
+
+
+
+
 
 </body>
 </html>
