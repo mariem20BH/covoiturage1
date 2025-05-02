@@ -1,30 +1,35 @@
 <?php
-require_once '../../controller/TrajetC.php';
-require_once '../../model/Trajet.php';
+require_once '../model/Trajet.php';
+require_once '../controller/TrajetC.php';
 
+header('Content-Type: application/json');
 
-// Vérifier si les données du formulaire sont soumises
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ID_Trajet'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $json = file_get_contents("php://input");
+    $data = json_decode($json, true);
 
-    // Récupérer les données soumises par le formulaire
-    $id = $_POST['ID_Inscription'];
-    $adresseDepart = $_POST['Adresse_Depart'];
-    $adresseArrivee = $_POST['Adresse_Arrivee'];
-    $nombrePlaces = $_POST['Nombre_Places'];
-    $prix = $_POST['Prix'];
-    $distance = $_POST['Distance'];
-    $duree = $_POST['Duree'];
+    if (!$data || !isset($data['ID_Trajet'])) {
+        echo json_encode(['success' => false, 'error' => 'Données manquantes']);
+        exit;
+    }
 
-    // Créer une instance du contrôleur
-    $trajetController = new TrajetC();
-    
-    // Mettre à jour le trajet
-    if ($trajetController->updateTrajet($id, $adresseDepart, $adresseArrivee, $nombrePlaces, $prix, $distance, $duree)) {
-        // Rediriger vers la page des trajets après mise à jour
-        header("Location: tables.php?msg=Trajet mis à jour avec succès");
-        exit();
-    } else {
-        echo "Erreur lors de la mise à jour du trajet.";
+    $trajetC = new TrajetC();
+
+    $trajet = new Trajet(
+        $data['Adresse_Depart'],
+        $data['Adresse_Arrivee'],
+        $data['Nombre_Places'],
+        $data['Prix'],
+        $data['Distance'],
+        $data['Duree'],
+        null  // si tu as ID_Inscription ou autre
+    );
+    $trajet->setID_Trajet($data['ID_Trajet']);
+
+    try {
+        $trajetC->updateTrajet($trajet);
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
 }
-?>

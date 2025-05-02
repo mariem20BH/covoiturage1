@@ -14,6 +14,8 @@
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -43,6 +45,15 @@
     }
     .sidenav {
       background-color: var(--primary-dark) !important;
+      /* Désactiver la barre de défilement */
+      overflow-y: auto;
+      scrollbar-width: none; /* Pour Firefox */
+      -ms-overflow-style: none; /* Pour Internet Explorer et Edge */
+    }
+    /* Pour Chrome, Safari et Opera */
+    .sidenav::-webkit-scrollbar {
+      display: none;
+      width: 0;
     }
     .sidenav .nav-link,
     .sidenav .nav-link-text,
@@ -96,7 +107,7 @@
     .alert-success {
       background-color: #28a745 !important; /* Explicitly set to green */
       border-color: #28a745 !important;
-      color: white !important; /* White text for better contrast */
+      color: white !important; 
     }
     .alert-warning {
       background-color: #ffc107 !important; /* Keep warning yellow */
@@ -167,307 +178,210 @@
 </head>
 <body class="g-sidenav-show bg-gray-100">
 
+<a href="covoiturage.php" class="btn btn-primary m-3">FrontOffice</a>
+
 <style>
-    .search-section {
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #f3faff;
-        border-radius: 10px;
-        width: fit-content;
+    :root {
+      --primary-dark: #0a1d37;
+      --accent-blue: #4da6ff;
     }
-    .error-message {
-        color: red;
-        font-weight: bold;
-        margin-top: 10px;
-        display: none;
-        transition: opacity 0.5s;
+    
+    body {
+      background-color: rgb(246, 248, 251) !important;
     }
-</style>
-
-<div class="search-section">
-    <form method="GET" action="tables.php">
-        <label for="idRecherche">🔍 Entrer l'ID :</label>
-        <input type="number" name="idRecherche" id="idRecherche" required>
-
-        <select name="typeRecherche">
-            <option value="inscription">Inscription</option>
-            <option value="trajet">Trajet</option>
-        </select>
-
-        <button type="submit" name="btnRecherche">Rechercher</button>
-    </form>
-
-    <div id="error" class="error-message">❌ Aucune donnée trouvée avec cet ID.</div>
-</div>
-<?php
-include '../controller/InscriptionC.php';
-include '../controller/TrajetC.php';
-
-if (isset($_GET['btnRecherche']) && isset($_GET['idRecherche']) && isset($_GET['typeRecherche'])) {
-    $id = intval($_GET['idRecherche']);
-    $type = $_GET['typeRecherche'];
-
-    if ($type == "inscription") {
-        $inscriptionC = new InscriptionC();
-        $result = $inscriptionC->rechercherInscriptionParID($id);
-        if ($result) {
-            echo "<h4>Résultat de l'inscription (ID : $id)</h4>";
-            echo "<table border='1' cellpadding='8'><tr>
-                    <th>ID</th><th>Téléphone</th><th>Catégorie</th><th>Date Réservation</th><th>Paiement</th>
-                  </tr><tr>";
-            echo "<td>".$result['ID']."</td>";
-            echo "<td>".$result['Telephone']."</td>";
-            echo "<td>".$result['Categorie']."</td>";
-            echo "<td>".$result['DateReservation']."</td>";
-            echo "<td>".$result['Paiement']."</td>";
-            echo "</tr></table>";
-        } else {
-            echo "<script>document.getElementById('error').style.display = 'block';
-                          setTimeout(() => document.getElementById('error').style.display = 'none', 4000);
-                  </script>";
-        }
+    
+    /* Améliorations des styles de formulaire */
+    .form-container {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      margin-top: 20px;
+    }
+    
+    .form-control, .form-select {
+      border: 1px solid #333 !important;
+      border-radius: 5px !important;
+      padding: 10px 15px !important;
+      background-color: white !important;
+      color: #333 !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: #1e3c72 !important;
+      box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.25) !important;
+    }
+    
+    .custom-title {
+      color: rgb(10, 50, 107) !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+    
+    .custom-subtitle {
+      color: #000 !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
     }
 
-    if ($type == "trajet") {
-        $trajetC = new TrajetC();
-        $result = $trajetC->rechercherTrajetParID($id);
-        if ($result) {
-            echo "<h4>Résultat du trajet (ID : $id)</h4>";
-            echo "<table border='1' cellpadding='8'><tr>
-                    <th>ID</th><th>Adresse Départ</th><th>Adresse Arrivée</th><th>Date</th><th>Heure</th>
-                  </tr><tr>";
-            echo "<td>".$result['ID']."</td>";
-            echo "<td>".$result['AdresseDepart']."</td>";
-            echo "<td>".$result['AdresseArrivee']."</td>";
-            echo "<td>".$result['Date']."</td>";
-            echo "<td>".$result['Heure']."</td>";
-            echo "</tr></table>";
-        } else {
-            echo "<script>document.getElementById('error').style.display = 'block';
-                          setTimeout(() => document.getElementById('error').style.display = 'none', 4000);
-                  </script>";
-        }
+    .sidenav {
+      background-color: var(--primary-dark) !important;
+      position: fixed;
+      left: 0 !important;
+      top: 0;
+      bottom: 0;
+      margin-left: 0;
+      transform: translateX(0);
+      width: 250px;
     }
-}
-?>
+    
+    .main-content {
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+    }
+    
+    .sidenav .nav-link,
+    .sidenav .nav-link-text,
+    .sidenav .navbar-brand span,
+    .sidenav .material-symbols-rounded {
+      color: white !important;
+    }
+    
+    .bg-gradient-blue {
+      background: linear-gradient(87deg, #1e3c72 0%, #2a5298 100%);
+      color: white !important;
+    }
+  </style>
 
-
-<?php
-
-require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
-$tC = new TrajetC();
-
-// Traitement de la suppression
-if (isset($_POST['supprimerTrajet']) && isset($_POST['delete_id'])) {
-    $id = $_POST['delete_id'];
-    $tC->DeleteTrajet($id);
-    header("Location: tables.php"); // Redirection pour éviter la resoumission
-    exit();
-}
-
-// Récupération des trajets (pour l'affichage)
-$listeTrajets = $tC->ListeTrajet();
-?>
-
-
-<?php
-require_once 'C:/xampp/htdocs/webproj/config.php';
-require_once 'C:/xampp/htdocs/webproj/controller/InscriptionC.php';
-require_once 'C:/xampp/htdocs/webproj/model/Inscription.php';
-
-$inscriptionC = new InscriptionC();
-
-$id = '';
-$telephone = '';
-$categorie = '';
-$dateReservation = '';
-$paiement = '';
-
-$message = '';
-if (isset($_POST['addInscription'])) {
-  
-  $telephone = $_POST['Telephone'];
-  $categorie = $_POST['Categorie'];
-  $dateReservation = $_POST['DateReservation'];
-  $paiement = $_POST['Paiement'];
-
-  
-  if (filter_var($telephone, FILTER_VALIDATE_INT)) {
-      
-      $inscription = new Inscription(null, $telephone, $categorie, $dateReservation, $paiement);
-
-      
-      $inscriptionC->AjouterInscription($inscription);
-
-      $message = "✅ Inscription ajoutée avec succès.";
-  } else {
-      $message = "❌ Le numéro de téléphone doit contenir uniquement des chiffres.";
-  }
-}
-
-
-
-
-
-if (isset($_POST['updateInscription'])) {
-  
-  if (!empty($_POST['ID']) && isset($_POST['Telephone'], $_POST['Categorie'], $_POST['DateReservation'], $_POST['Paiement'])) {
-      $id = (int)$_POST['ID'];
-      $telephone = (int)$_POST['Telephone'];
-      $categorie = $_POST['Categorie'];
-      $dateReservation = $_POST['DateReservation'];
-      $paiement = $_POST['Paiement'];
-      
-      
-      error_log("Updating inscription $id with: Telephone=$telephone, Categorie=$categorie, DateReservation=$dateReservation, Paiement=$paiement");
-      
-      if ($inscriptionC->updateInscription($id, $telephone, $categorie, $dateReservation, $paiement)) {
-          $message = "✅ Inscription mise à jour avec succès!";
-      } else {
-          $message = "❌ Erreur lors de la mise à jour";
-      }
-  } else {
-      $message = "❌ Tous les champs sont requis pour la mise à jour";
-  }
-  
-  
-  $inscriptions = $inscriptionC->ListeInscription();
-}
-
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteInscription'])) {
-      $idToDelete = $_POST['IDToDelete'];
-      if (!empty($idToDelete) && is_numeric($idToDelete)) {
-          $inscriptionExistante = $inscriptionC->GetInscription($idToDelete);
-          if ($inscriptionExistante) {
-              $inscriptionC->DeleteInscription($idToDelete);
-              $message = "✅ Inscription avec l'ID $idToDelete supprimée avec succès.";
-          } else {
-              $message = "❌ Aucune inscription trouvée avec l'ID $idToDelete.";
-          }
-      } else {
-          $message = '❌ Entrez un ID valide pour supprimer.';
-      }
-  }
-
-  $inscriptions = $inscriptionC->ListeInscription();
-  ?>
-
-
-
-
-
-<?php if (!empty($message)): ?>
-    <script type="text/javascript">
-        alert("<?php echo $message; ?>");
-    </script>
-<?php endif; ?>
-
-  <?php if (!empty($message)): ?>
-      <div class="alert alert-success" role="alert">
-          <?= htmlspecialchars($message) ?>
-      </div>
-  <?php endif; ?>
-
-
- 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 fixed-start" id="sidenav-main">
-  <div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand px-4 py-3 m-0" href="#">
-      <img src="../assets/img/easyparki.png" class="navbar-brand-img" width="50">
-      <span class="ms-1 text-white">EasyParki</span>
-    </a>
-  </div>
-  <hr class="horizontal light mt-0 mb-2">
-  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
-    <ul class="navbar-nav">
-      <?php
-        $currentPage = basename($_SERVER['PHP_SELF']); // ex: covoiturage.php
-        function isActive($file) {
-          global $currentPage;
-          return $currentPage === $file ? 'active bg-gradient-primary text-white' : '';
-        }
-      ?>
-
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('dashboard.php') ?>" href="dashboard.php">
-          <i class="material-symbols-rounded opacity-5">dashboard</i>
-          <span class="nav-link-text ms-1">Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('tables.php') ?>" href="tables.php">
-          <i class="material-symbols-rounded opacity-5">electric_car</i>
-          <span class="nav-link-text ms-1">covoiturage</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('transport.php') ?>" href="transport.php">
-          <i class="material-symbols-rounded opacity-5">directions_bus</i>
-          <span class="nav-link-text ms-1">Transport Public</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('covoiturage.php') ?>" href="covoiturage.php">
-          <i class="material-symbols-rounded opacity-5">carpool</i>
-          <span class="nav-link-text ms-1">Covoiturage</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('recharge.php') ?>" href="recharge.php">
-          <i class="material-symbols-rounded opacity-5">electric_car</i>
-          <span class="nav-link-text ms-1">Recharge électrique</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('evenement.php') ?>" href="evenement.php">
-          <i class="material-symbols-rounded opacity-5">event</i>
-          <span class="nav-link-text ms-1">Evenement</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('notifications.php') ?>" href="notifications.php">
-          <i class="material-symbols-rounded opacity-5">notifications</i>
-          <span class="nav-link-text ms-1">Notifications</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('services.php') ?>" href="services.php">
-          <i class="material-symbols-rounded opacity-5">build</i>
-          <span class="nav-link-text ms-1">Services</span>
-        </a>
-      </li>
-
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Pages Compte</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('profile.php') ?>" href="profile.php">
-          <i class="material-symbols-rounded opacity-5">person</i>
-          <span class="nav-link-text ms-1">Profil</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('sign-in.php') ?>" href="sign-in.php">
-          <i class="material-symbols-rounded opacity-5">login</i>
-          <span class="nav-link-text ms-1">Connexion</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link <?= isActive('sign-up.php') ?>" href="sign-up.php">
-          <i class="material-symbols-rounded opacity-5">assignment</i>
-          <span class="nav-link-text ms-1">Inscription</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="sidenav-footer position-absolute w-100 bottom-0">
-    <div class="mx-3">
-      <a class="btn btn-outline-white mt-4 w-100" href="#">FrontOffice</a>
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand px-4 py-3 m-0" href="back/pages/tables.php">
+        <img src="back/assets/img/easyparki.png" class="navbar-brand-img" width="50">
+        <span class="ms-1 text-white">EasyParki</span>
+      </a>
     </div>
-  </div>
-</aside>
+
+    <hr class="horizontal light mt-0 mb-2">
+
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <!-- ... Les éléments du menu ... -->
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/dashboard.html">
+            <i class="material-symbols-rounded opacity-10">dashboard</i>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+
+        <!-- Stationnement -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/tables.php">
+            <i class="material-symbols-rounded opacity-10">local_parking</i>
+            <span class="nav-link-text ms-1">Stationnement</span>
+          </a>
+        </li>
+
+        <!-- Covoiturage -->
+        <li class="nav-item">
+          <a class="nav-link active bg-gradient-blue text-white" href="javascript:;">
+            <i class="material-symbols-rounded opacity-10">directions_car</i>
+            <span class="nav-link-text ms-1">Covoiturage</span>
+          </a>
+          <ul class="nav ms-4 ps-3">
+            <li class="nav-item">
+              <a href="../../AjouterTrajet.php" class="nav-link text-white active bg-gradient-primary opacity-8">
+                <i class="fas fa-plus-circle me-2"></i> Ajouter un trajet
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../../ListeTrajet.php" class="nav-link text-white">
+                <i class="fas fa-list me-2"></i> Liste des trajets
+              </a>
+            </li>
+         
+            <li class="nav-item">
+              <a href="../../ListeInscription.php" class="nav-link text-white">
+                <i class="fas fa-clipboard-list me-2"></i> Liste des inscriptions
+              </a>
+            </li>
+          </ul>
+        </li>
+                <!-- Vacances -->
+                <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/billing.html">
+            <i class="material-symbols-rounded opacity-10">directions_bus</i>
+            <span class="nav-link-text ms-1">Vacances</span>
+          </a>
+        </li>
+
+        <!-- Service -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/virtual-reality.html">
+            <i class="material-symbols-rounded opacity-10">view_in_ar</i>
+            <span class="nav-link-text ms-1">Service</span>
+          </a>
+        </li>
+
+        <!-- Evenement -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/rtl.html">
+            <i class="material-symbols-rounded opacity-10">format_textdirection_r_to_l</i>
+            <span class="nav-link-text ms-1">Événement</span>
+          </a>
+        </li>
+
+        <!-- Notifications -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/notifications.html">
+            <i class="material-symbols-rounded opacity-10">notifications</i>
+            <span class="nav-link-text ms-1">Notifications</span>
+          </a>
+        </li>
+
+        <!-- Account Pages Title -->
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages Compte</h6>
+        </li>
+
+        <!-- Profile -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/profile.html">
+            <i class="material-symbols-rounded opacity-10">person</i>
+            <span class="nav-link-text ms-1">Profil</span>
+          </a>
+        </li>
+
+        <!-- Sign In -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/sign-in.html">
+            <i class="material-symbols-rounded opacity-10">login</i>
+            <span class="nav-link-text ms-1">Se connecter</span>
+          </a>
+        </li>
+
+        <!-- Sign Up -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="back/pages/sign-up.html">
+            <i class="material-symbols-rounded opacity-10">assignment</i>
+            <span class="nav-link-text ms-1">S'inscrire</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <!-- Footer Button -->
+    <div class="sidenav-footer position-absolute w-100 bottom-0">
+      <div class="mx-3">
+        <a class="btn btn-outline-white mt-4 w-100" href="http://localhost/webproj/view/front/Logis/covoiturage.php">FrontOffice</a>
+      </div>
+    </div>
+  </aside>
+
+
 
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
@@ -530,148 +444,6 @@ if (isset($_POST['updateInscription'])) {
 
 
 
-    <?php
-require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
-require_once 'C:/xampp/htdocs/webproj/model/Trajet.php';
-require_once 'C:/xampp/htdocs/webproj/config.php';
-
-$msg = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (
-        isset($_POST["ID_Inscription"]) &&
-        isset($_POST["AdresseDepart"]) &&
-        isset($_POST["AdresseArrivee"]) &&
-        isset($_POST["NombrePlaces"]) &&
-        isset($_POST["Prix"]) &&
-        isset($_POST["Distance"]) &&
-        isset($_POST["Duree"])
-    ) {
-        $pdo = Config::getConnexion();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE ID = ?");
-        $stmt->execute([$_POST["ID_Inscription"]]);
-        $inscriptionExist = $stmt->fetchColumn();
-
-        if ($inscriptionExist == 0) {
-            $msg = "Erreur : L'ID d'inscription n'existe pas dans la base de données.";
-        } elseif (strlen($_POST["AdresseArrivee"]) < 4) {
-            $msg = "Erreur : L'adresse d'arrivée doit contenir au moins 4 caractères.";
-        } elseif (!is_numeric($_POST["Prix"]) || $_POST["Prix"] <= 0) {
-            $msg = "Erreur : Le prix doit être un nombre positif et en dinars.";
-        } 
-        // ✅ Vérification du nombre de places
-        elseif (!is_numeric($_POST["NombrePlaces"]) || intval($_POST["NombrePlaces"]) <= 0) {
-            $msg = "Erreur : Le nombre de places doit être un entier positif.";
-        }
-        elseif (!is_numeric($_POST["Distance"]) || $_POST["Distance"] <= 0) {
-            $msg = "Erreur : La distance doit être un nombre positif.";
-        } else {
-            $trajet = new Trajet(
-                $_POST["ID_Inscription"],
-                $_POST["AdresseDepart"],
-                $_POST["AdresseArrivee"],
-                $_POST["NombrePlaces"],
-                $_POST["Prix"],
-                $_POST["Distance"],
-                $_POST["Duree"]
-            );
-
-            $pc = new TrajetC();
-            $pc->AjouterTrajet($trajet);
-            $msg = "Trajet ajouté avec succès ✅";
-        }
-    } else {
-        $msg = "Veuillez remplir tous les champs.";
-    }
-}
-
-
-$tc = new TrajetC();
-$listeTrajets = $tc->ListeTrajet();
-?>
-
-
-<?php
-require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
-$trajetC = new TrajetC();
-
-if (isset($_POST['modifierTrajet'])) {
-    $trajetC->updateTrajet([
-        'ID_Trajet' => $_POST['ID_Trajet'],
-        'Adresse_Arrivee' => $_POST['AdresseArrivee'],
-        'Nombre_Places' => $_POST['NombrePlaces'],
-        'Prix' => $_POST['Prix'],
-        'Distance' => $_POST['Distance'],
-        'Duree' => $_POST['Duree']
-    ]);
-
-    // Recharge la page pour voir les nouvelles valeurs
-    echo "<script>window.location.href='tables.php';</script>";
-    exit();
-}
-?>
-<?php
-
-require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
-$tC = new TrajetC();
-
-// Traitement de la suppression
-if (isset($_POST['supprimerTrajet']) && isset($_POST['delete_id'])) {
-    $id = $_POST['delete_id'];
-    $trajetC->DeleteTrajet($id);
-    header("Location: tables.php?deleted=1");
-    // Redirection pour éviter la resoumission
-    exit();
-}
-
-// Récupération des trajets (pour l'affichage)
-$listeTrajets = $tC->ListeTrajet();
-?> 
-
-
-
-
-
-
-<?php if (isset($_GET['deleted']) && $_GET['deleted'] == 1): ?>
-    <div id="message-suppression" style="
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #007bff;
-        color: #4b0082;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-family: sans-serif;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        z-index: 9999;
-    ">
-        Trajet supprimé avec succès
-        <span style="
-            background-color: #00e676;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 14px;
-        ">✅</span>
-    </div>
-
-    <script>
-        setTimeout(function () {
-            var message = document.getElementById("message-suppression");
-            if (message) {
-                message.style.transition = "opacity 1s ease";
-                message.style.opacity = 0;
-                setTimeout(function () {
-                    message.remove();
-                }, 1000);
-            }
-        }, 4000);
-    </script>
-<?php endif; ?>
 
 
 
@@ -679,105 +451,6 @@ $listeTrajets = $tC->ListeTrajet();
 
 
 
-
-
-
-<div class="card p-4">
-    <h4>Ajouter un nouveau trajet</h4>
-    <?php if ($msg != ""): ?>
-        <p id="msg" style="color: blue;"><?= htmlspecialchars($msg) ?></p>
-    <?php endif; ?>
-
-    <form method="POST">
-        <div class="mb-3">
-            <label>ID_Inscription</label>
-            <input type="text" name="ID_Inscription" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="AdresseDepart">Adresse Depart :</label>
-            <select name="AdresseDepart" id="AdresseDepart">
-                <option value="">-- Sélectionnez une adresse --</option>
-                <option value="Parking de l'aéroport">Parking de l'aéroport</option>
-                <option value="Parking Tunis City">Parking Tunis City</option>
-                <option value="Parking Municipal">Parking Municipal</option>
-                <option value="Centre Urbain Nord">Centre Urbain Nord</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label>Adresse Arrivée</label>
-            <input type="text" name="AdresseArrivee" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Nombre de places</label>
-            <input type="text" name="NombrePlaces" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Prix (Dinars)</label>
-            <input type="text" name="Prix" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Distance (km)</label>
-            <input type="text" name="Distance" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>Duree (HH:MM:SS)</label>
-            <input type="text" name="Duree" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-    </form>
-</div>
-
-
-<div class="card p-4" style="flex: 1;">
-    <h4>Liste des trajets</h4>
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Inscription</th>
-                <th>Départ</th>
-                <th>Arrivée</th>
-                <th>Places</th>
-                <th>Prix (DT)</th>
-                <th>Distance (km)</th>
-                <th>Durée</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-<?php foreach ($listeTrajets as $trajet): ?>
-    <tr>
-        <!-- Formulaire de modification -->
-        <form method="POST">
-            <input type="hidden" name="ID_Trajet" value="<?= $trajet['ID_Trajet'] ?>">
-            <td><?= $trajet['ID_Trajet'] ?></td>
-            <td><?= $trajet['ID_Inscription'] ?></td>
-            <td>
-    <select name="AdresseDepart" class="form-select">
-        <option value="">-- Sélectionnez une adresse --</option>
-        <option value="Parking de l'aéroport" <?= $trajet['Adresse_Depart'] == "Parking de l'aéroport" ? 'selected' : '' ?>>Parking de l'aéroport</option>
-        <option value="Parking Tunis City" <?= $trajet['Adresse_Depart'] == "Parking Tunis City" ? 'selected' : '' ?>>Parking Tunis City</option>
-        <option value="Parking Municipal" <?= $trajet['Adresse_Depart'] == "Parking Municipal" ? 'selected' : '' ?>>Parking Municipal</option>
-        <option value="Centre Urbain Nord" <?= $trajet['Adresse_Depart'] == "Centre Urbain Nord" ? 'selected' : '' ?>>Centre Urbain Nord</option>
-    </select>
-</td>
-            <td><input type="text" name="AdresseArrivee" value="<?= htmlspecialchars($trajet['Adresse_Arrivee']) ?>" class="form-control" /></td>
-            <td><input type="number" name="NombrePlaces" value="<?= htmlspecialchars($trajet['Nombre_Places']) ?>" class="form-control" style="width: 70px;" /></td>
-            <td><input type="text" name="Prix" value="<?= htmlspecialchars($trajet['Prix']) ?>" class="form-control" style="width: 80px;" /></td>
-            <td><input type="text" name="Distance" value="<?= htmlspecialchars($trajet['Distance']) ?>" class="form-control" style="width: 80px;" /></td>
-            <td><input type="text" name="Duree" value="<?= htmlspecialchars($trajet['Duree']) ?>" class="form-control" style="width: 100px;" /></td>
-            <td>
-                <button type="submit" name="modifierTrajet" class="btn btn-warning btn-sm">Modifier</button>
-        </form>
-
-        <!-- Formulaire de suppression (séparé) -->
-        <form method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?');" style="display:inline;">
-            <input type="hidden" name="delete_id" value="<?= $trajet['ID_Trajet'] ?>">
-            <button type="submit" name="supprimerTrajet" class="btn btn-sm btn-outline-danger">Supprimer</button>
-        </form>
-            </td>
-    </tr>
-<?php endforeach; ?>
 </tbody>
 
     </table>
@@ -803,101 +476,15 @@ $listeTrajets = $tC->ListeTrajet();
 }
 </style>
 
-<!-- Script pour faire disparaître le message après 4 secondes -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var msg = document.getElementById("msg");
-    if (msg) {
-        msg.style.display = "block"; // Afficher le message
-        setTimeout(function() {
-            msg.style.display = "none"; // Cacher le message après 4 secondes
-        }, 4000);
-    }
-});
-</script>
-
-
-    <div class="container-fluid py-4">
-      
-      <div class="row">
-        <div class="col-12">
-          
-          <?php
-require_once '../../../controller/InscriptionC.php';
-$inscriptionC = new InscriptionC();
-
-
-if (isset($_POST['delete_id'])) {
-  $inscriptionC->deleteInscription($_POST['delete_id']);
-  echo "<script>window.location.href='tables.php';</script>";
-  exit;
-}
-
-$liste = $inscriptionC->listeInscription();
-?>
-
-<div class="card shadow-sm border-0 mb-4">
-  <div class="card-header bg-white py-3">
-    <h5 class="mb-1 text-dark fw-bold">📋 Liste des Inscriptions</h5>
-    <small class="text-muted">Toutes les inscriptions enregistrées dans le système</small>
-  </div>
-
-  <div class="card-body table-responsive">
-    <table class="table table-hover align-middle text-center">
-      <thead class="table-light">
-        <tr>
-          <th>ID</th>
-          <th>Telephone</th>
-          <th>Categorie</th>
-          <th>DateReservation</th>
-          <th>Paiement</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (!empty($liste)) : ?>
-          <?php foreach ($liste as $inscription) : ?>
-            <tr>
-              <td class="fw-bold text-secondary"><?= htmlspecialchars($inscription['ID']) ?></td>
-              <td><?= htmlspecialchars($inscription['Telephone']) ?></td>
-              <td>
-                <span class="badge rounded-pill 
-                    <?= $inscription['Categorie'] == 'Privé' ? 'bg-success' : 'bg-info' ?>">
-                  <?= htmlspecialchars($inscription['Categorie']) ?>
-                </span>
-              </td>
-              <td>
-                <span class="text-nowrap">
-                  <?= date('d/m/Y H:i', strtotime($inscription['DateReservation'])) ?>
-                </span>
-              </td>
-              <td>
-                <span class="badge rounded-pill 
-                    <?= $inscription['Paiement'] == 'Carte' ? 'bg-primary' : 'bg-warning text-dark' ?>">
-                  <?= htmlspecialchars($inscription['Paiement']) ?>
-                </span>
-              </td>
-              <td>
-                <form method="post" onsubmit="return confirm('Supprimer cette inscription ?');" style="display:inline;">
-                  <input type="hidden" name="delete_id" value="<?= $inscription['ID'] ?>">
-                  <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
-                </form>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-        
-
-</form>
 </body>
+
 </html>
 
 
-        
-        
+
+
+
+
+
+
+

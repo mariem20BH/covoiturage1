@@ -45,6 +45,9 @@ class Trajet {
          return $this->Duree; }
 
     // Setters
+    public function setID_Trajet($id) {
+        $this->ID_Trajet = $id;
+    }
     public function setID_Inscription($id) { 
         $this->ID_Inscription = $id;
      }

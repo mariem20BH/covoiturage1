@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>covoiturage - Easyparki Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <title>EasyParki - Covoiturages</title>
+  <meta name="description" content="Planifiez vos covoiturage en toute simplicité avec EasyParki">
+  <meta name="keywords" content="Trajet, Inscription">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/lo.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,999 +24,965 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Logis
-  * Template URL: https://bootstrapmade.com/logis-bootstrap-logistics-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <style>
+    :root {
+  --primary-color: #0d3f72;       
+  --primary-dark: #08284d;        
+  --secondary-color: #0a1d37;    
+  --accent-color: #3a5cb3;        /* Bleu vif */
+  --light-color: #f8fafc;         /* Fond très légèrement bleuté */
+  --dark-color: #2d3748;          /* Texte foncé doux */
+  --text-color: #4a5568;          /* Texte principal */
+  --section-bg: #f5f7fa;          /* Arrière-plan des sections */
+  --card-bg: #ffffff;             /* Fond des cartes */
+  --border-color: rgba(0,0,0,0.08); /* Bordures subtiles */
+  --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+}
+    
+    /* Header & Navigation */
+    .header {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    
+    .sitename {
+  font-family: Arial, sans-serif; /* juste changer la police */
+  font-weight: 700;
+  color: var(--secondary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+    
+    .navmenu ul li a {
+      position: relative;
+      color: var(--dark-color);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .navmenu ul li a:hover,
+    .navmenu ul li a.active {
+      color: var(--primary-color);
+    }
+    
+    .navmenu ul li a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient);
+      transition: width 0.3s ease;
+    }
+    
+    .navmenu ul li a:hover:after,
+    .navmenu ul li a.active:after {
+      width: 100%;
+    }
+    
+    .btn-getstarted {
+      background: var(--gradient);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 10px 25px;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(74, 166, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-getstarted:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(74, 166, 255, 0.6);
+    }
+    
+    /* Hero Section */
+    .page-title {
+      position: relative;
+      padding: 180px 0 120px;
+      background: linear-gradient(rgba(10, 29, 55, 0.85), rgba(10, 29, 55, 0.85)), url('assets/img/55.png') center/cover no-repeat;
+      color: white;
+      text-align: center;
+    }
+    
+    .page-title h1 {
+      font-family: Arial, sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      animation: fadeInDown 1s ease;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .page-title p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      animation: fadeInUp 1s ease;
+      opacity: 0.9;
+    }
+    
+    /* About Section - Redesign */
+    .about {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/img/wave-bg.svg') center/cover no-repeat;
+      opacity: 0.03;
+      z-index: -1;
+    }
+    
+    .about h3 {
+      font-family: Arial, sans-serif;
+      color: var(--secondary-color);
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .about h3:after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100px;
+      height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+    
+    .about .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(13, 63, 114, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+    }
+    
+    .feature-card h4 {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--secondary-color);
+    }
+    
+    /* Stats Section - Redesign */
+    .stats {
+      padding: 100px 0;
+      background: var(--gradient);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/img/dots-bg.png') center/cover no-repeat;
+      opacity: 0.1;
+    }
+    
+    .stats-item {
+      padding: 40px 30px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      transition: all 0.4s ease;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .stats-item:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .stats-item span {
+      font-size: 3rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #fff, #e0f1ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Testimonials - Redesign */
+    .testimonials {
+      padding: 120px 0;
+      background: linear-gradient(135deg, #f8faff 0%, #f0f7ff 100%);
+    }
+    
+    .testimonial-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 100px;
+      font-family: 'Playfair Display', serif;
+      color: rgba(13, 63, 114, 0.05);
+      line-height: 1;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .stars {
+      color: #ffc107;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    
+    /* CTA Section - Redesign */
+    .cta-section {
+      padding: 100px 0;
+      background: url('assets/img/cta-bg.jpg') center/cover no-repeat;
+      position: relative;
+      text-align: center;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 63, 114, 0.9);
+    }
+    
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .cta-btn {
+      background: white;
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 15px 40px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+    }
+    
+    /* FAQ Section - Redesign */
+    .faq-section {
+      padding: 100px 0;
+      background: #f9fbfe;
+    }
+    
+    .faq-item {
+      margin-bottom: 15px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .faq-item:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    .faq-item h3 {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item:hover h3 {
+      color: var(--primary-color);
+    }
+    
+    .faq-item.active h3 {
+      color: var(--primary-color);
+    }
+    
+    .faq-content {
+      padding: 0 25px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .faq-item.active .faq-content {
+      padding: 0 25px 25px;
+      max-height: 500px;
+    }
+    
+    .faq-toggle {
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-toggle {
+      transform: rotate(180deg);
+    }
+    
+    /* Footer - Redesign */
+    .footer {
+      background: var(--secondary-color);
+      color: white;
+      padding-top: 100px;
+      position: relative;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      background: var(--gradient);
+    }
+    
+    .footer-links h4 {
+      font-family: Arial, sans-serif;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-links h4::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+    
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(249, 249, 249, 0.91);
+      border-radius: 50%;
+      margin-right: 10px;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: white;
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-title h1 {
+        font-size: 2.5rem;
+      }
+      
+      .page-title p {
+        font-size: 1rem;
+      }
+      
+      .about h3, .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+    
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title span {
+      color: var(--primary-color);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+    
+    .section-title h2 {
+      font-family: Arial, sans-serif;
+      color: var(--secondary-color);
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .section-title p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #666;
+    }
+    
+    /* Dropdown styling */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      padding: 10px 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      border: none;
+    }
+  
+    .nav-item.dropdown:hover .dropdown-menu {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  
+    .dropdown-item {
+      padding: 12px 25px;
+      color: var(--secondary-color) !important;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+  
+    .dropdown-item:hover {
+      background: rgba(13, 63, 114, 0.05);
+      padding-left: 30px;
+    }
+  
+    .dropdown-item i {
+      color: var(--primary-color);
+      font-size: 1.1em;
+      width: 24px;
+      text-align: center;
+    }
+    
+    /* Floating Get Started Button */
+    .floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(13, 63, 114, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    
+    .floating-btn:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 15px 30px rgba(13, 63, 114, 0.4);
+    }
+    
+    /* Destination Gallery */
+    .destination-gallery {
+      padding: 100px 0;
+      background: #f9fbfe;
+    }
+    
+    .destination-card {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .destination-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .destination-img {
+      height: 250px;
+      object-fit: cover;
+      width: 100%;
+      transition: transform 0.5s ease;
+    }
+    
+    .destination-card:hover .destination-img {
+      transform: scale(1.05);
+    }
+    
+    .destination-info {
+      padding: 20px;
+      background: white;
+      position: relative;
+    }
+    
+    .destination-info h4 {
+      margin-bottom: 10px;
+      color: var(--secondary-color);
+    }
+    
+    .destination-info p {
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .price-tag {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      background: var(--gradient);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(13, 63, 114, 0.3);
+    }
+    
+    /* How It Works */
+    .how-it-works {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .how-it-works::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/img/dots-pattern.png') center/cover no-repeat;
+      opacity: 0.05;
+      z-index: -1;
+    }
+    
+    .step-card {
+      background: white;
+      border-radius: 15px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s ease;
+      height: 100%;
+      text-align: center;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: rgba(13, 63, 114, 0.1);
+      color: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .step-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .step-card:hover .step-number {
+      background: var(--gradient);
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      padding: 80px 0;
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+    }
+    
+    .newsletter-form {
+      max-width: 600px;
+      margin: 40px auto 0;
+      display: flex;
+      background: white;
+      border-radius: 50px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      border: none;
+      padding: 15px 25px;
+      outline: none;
+      font-size: 1rem;
+    }
+    
+    .newsletter-btn {
+      background: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+      background: #08172f;
+    }
+    /* Effet de carte amélioré */
+.destination-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.destination-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.destination-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+.destination-card:hover::before {
+  opacity: 0.03;
+}
+
+/* Animation du badge */
+.card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--gradient);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+  </style>
 </head>
 
-<body class="covoiturage-page">
+<body class="vacation-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+      <a href="about.php" class="logo d-flex align-items-center me-auto">
         <h1 class="sitename">EasyParki</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html">Home<br></a></li>
-          <li><a href="covoiturage.php" class="active">Stationnement</a></li>
-          <li><a href="services.php">Services</a></li>
-          <li><a href="pricing.html">Vacances</a></li>
-          <li><a href="pricing.html">Evenement</a></li>
-          <li><a href="covoiturage.php">Covoiturage</a></li>
-          <li><a href="cantact.html">Cantact</a></li>
-          
-        
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="Stationnement.html">Stationnement</a></li>
+          <li class="dropdown">
+            <a href="transport public.html" class="active">Covoiturage</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="listereservationfront.php" class="dropdown-item">
+                  <i class="bi bi-building"></i>
+                  Consulter vos reservations
+                </a>
+              </li>
+              <li>
+                <a href="addreservationfront.php" class="dropdown-item">
+                  <i class="bi bi-calendar-plus"></i>
+                  Planifier votre inscription
+                </a>
+              </li>
+              <li>
+                <a href="addtrajet.php" class="dropdown-item">
+                  <i class="bi bi-list-task"></i>
+                  Planifier votre trajet
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="Covoiturage.html">Vacances</a></li>
+          <li><a href="Recharge.html">Service</a></li>
+          <li><a href="Evenement.html">Événement</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="créeuncompte.php">créer un compte</a>
+      <a class="btn-getstarted" href="get-a-quote.html">Créer un compte</a>
 
     </div>
   </header>
 
   <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.jpg);">
+    <!-- Hero Section -->
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url(/webproj/view/back/assets/img/55.jpg);">
       <div class="container position-relative">
-        <h1>Covoiturage</h1>
-        <p>Share the journey, split the costs,and leave the solo driving in the reaview mirror.</p>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Covoiturage</li>
-          </ol>
-        </nav>
+        <h1>Vos covoitirages Parfaites</h1>
+        <p>Partez à l'aventure et vivez des souvenirs mémorables grâce à notre service.</p>
+        <div class="mt-4">
+          <a href="addtrajet.php" class="btn btn-light btn-lg px-4 me-2">Explorer les Trajt</a>
+          <a href="addreservationfron.php" class="btn btn-outline-light btn-lg px-4">Planifier maintenant</a>
+        </div>
       </div>
-    </div><!-- End Page Title -->
-    <!-- Section Covoiturage -->
-  <
+    </div><!-- End Hero Section -->
+
+    <!-- About Section - Redesigned -->
+    <section id="about" class="about section">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 col-md-12">
-        <!-- Formulaire d'ajout d'inscription -->
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-       
-       
-
-
-       
-
-        <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once 'C:/xampp/htdocs/webproj/controller/TrajetC.php';
-require_once 'C:/xampp/htdocs/webproj/model/Trajet.php';
-require_once 'C:/xampp/htdocs/webproj/config.php';
-$pdo = config::getConnexion();
-
-// ▶ Ajouter Trajet
-if (isset($_POST['addTrajet'])) {
-    $ID_Inscription = $_POST['ID_Inscription'];
-    $Adressedepart = $_POST['Adresse_Depart'];
-    $Adressearrivee = $_POST['Adresse_Arrivee'];
-    $NombrePlaces = $_POST['Nombre_Places'];
-    $Prix = $_POST['Prix'];
-    $Distance = $_POST['Distance'];
-    $Duree = $_POST['Duree'];
-
-    $error = "";
-
-    // 1. Vérifie que l'ID existe dans la table inscription
-    $stmt1 = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE ID = ?");
-    $stmt1->execute([$ID_Inscription]);
-    $inscriptionExiste = $stmt1->fetchColumn() > 0;
-
-    // 2. Vérifie que l'ID n'existe pas encore dans la table trajet
-    $stmt2 = $pdo->prepare("SELECT COUNT(*) FROM trajet WHERE ID_Inscription = ?");
-    $stmt2->execute([$ID_Inscription]);
-    $trajetDejaExistant = $stmt2->fetchColumn() > 0;
-
-    // Validation
-    if (!$inscriptionExiste) {
-        $error = "❌ ID d'inscription introuvable.";
-    } elseif ($trajetDejaExistant) {
-        $error = "❌ Un trajet est déjà associé à cette inscription.";
-    } elseif (strlen($Adressearrivee) < 3) {
-        $error = "❌ L'adresse d'arrivée doit contenir au moins 3 caractères.";
-    } elseif (!is_numeric($NombrePlaces) || $NombrePlaces < 1) {
-        $error = "❌ Le nombre de places doit être supérieur ou égal à 1.";
-    } elseif (!is_numeric($Prix)) {
-        $error = "❌ Le prix doit être un nombre.";
-    }
-
-    // Gestion des erreurs
-    if ($error) {
-        $_SESSION['error_message'] = $error;
-        header("Location: covoiturage.php?error=1");
-        exit();
-    }
-
-    // Ajout du trajet
-    $trajet = new Trajet($ID_Inscription, $Adressedepart, $Adressearrivee, $NombrePlaces, $Prix, $Distance, $Duree);
-    $trajetC = new TrajetC();
-    $result = $trajetC->ajouterTrajetAvecRetourID($trajet);
-
-    if ($result) {
-        $_SESSION['last_trajet_id'] = $result;
-        header("Location: covoiturage.php?success=1&id=$result");
-    } else {
-        $_SESSION['error_message'] = "❌ Une erreur s’est produite lors de l’ajout.";
-        header("Location: covoiturage.php?error=1");
-    }
-    exit();
-}
-
-// ▶ Suppression
-if (isset($_POST['deleteTrajet'])) {
-    $id = $_POST['delete_id'];
-    $trajetC = new TrajetC();
-    $trajetC->DeleteTrajet($id);
-    unset($_SESSION['last_trajet_id']);
-    header("Location: covoiturage.php?deleted=true");
-    exit();
-}
-?>
-
-
-        <?php
-
-require_once 'C:/xampp/htdocs/webproj/controller/InscriptionC.php';
-require_once 'C:/xampp/htdocs/webproj/model/Inscription.php';
-require_once 'C:/xampp/htdocs/webproj/config.php'; // connexion centralisée
-$pdo = config::getConnexion();
-if (isset($_POST['addInscription'])) {
-  // Récupérer les données du formulaire
-  $telephone = $_POST['Telephone'];  // C’est une string maintenant
-  $categorie = $_POST['Categorie'];
-  $dateReservation = $_POST['DateReservation'];
-  $paiement = $_POST['Paiement'];
-
-  // Validation de la donnée (format du téléphone)
-  if (!preg_match('/^\d{8,15}$/', $telephone)) {
-      header("Location: covoiturage.php?error=telephone_format");
-      exit();
-  }
-
-  // Vérification si le téléphone existe déjà dans la base
-  $stmt = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE Telephone = ?");
-  $stmt->execute([$telephone]);
-  $count = $stmt->fetchColumn();
-
-  if ($count > 0) {
-      header("Location: covoiturage.php?error=telephone_existe");
-      exit();
-  } else {
-      // Si le téléphone n'existe pas, on crée une nouvelle inscription
-      $inscription = new Inscription($telephone, $categorie, $dateReservation, $paiement);
-      $inscriptionC = new InscriptionC();
-      $lastID = $inscriptionC->ajouterInscriptionAvecRetourID($inscription);
-
-      // Rediriger avec succès
-      $_SESSION['last_insert_id'] = $lastID;
-      header("Location: covoiturage.php?success=true");
-      exit();
-  }
-}
-
-
-// ▶ Suppression
-if (isset($_POST['deleteInscription'])) {
-    $id = $_POST['delete_id'];
-    $inscriptionC = new InscriptionC();
-    $inscriptionC->DeleteInscription($id);
-    unset($_SESSION['last_insert_id']);
-    header("Location: covoiturage.php?deleted=true");
-    exit();
-}
-?>
-
-<?php
-// Messages d'alerte
-if (isset($_GET['error'])) {
-    switch ($_GET['error']) {
-        case 'telephone_existe':
-            echo "<script>alert('Ce numéro de téléphone est déjà utilisé.');</script>";
-            break;
-        case 'telephone_format':
-            echo "<script>alert('Le numéro doit contenir au moins 8 chiffres.');</script>";
-            break;
-    }
-}
-if (isset($_GET['success']) && $_GET['success'] === 'true') {
-    echo "<script>alert('Inscription ajoutée avec succès !');</script>";
-}
-if (isset($_GET['deleted']) && $_GET['deleted'] === 'true') {
-    echo "<script>alert('Inscription supprimée avec succès.');</script>";
-}
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscriptions Covoiturage</title>
-    <style>
-       /* Palette bleu nude */
-:root {
-    --nude-blue: #c8ddee;
-    --deep-blue: #4a90e2;
-    --light-blue: #ecf4fb;
-    --accent-blue: #b0c9e8;
-    --white: #ffffff;
-    --shadow: rgba(0, 0, 0, 0.1);
-}
-
-/* Form Container */
-.form-container {
-    background: var(--light-blue);
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px var(--shadow);
-    font-family: 'Segoe UI', sans-serif;
-    transition: transform 0.3s ease;
-}
-.form-container:hover {
-    transform: scale(1.01);
-}
-
-/* Form Title */
-.form-container h4,
-.form-container h2 {
-    color: var(--deep-blue);
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-/* Group */
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-.form-group label {
-    display: block;
-    color: var(--deep-blue);
-    margin-bottom: 0.4rem;
-    font-weight: 500;
-}
-
-/* Inputs */
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.50rem;
-    border: 1px solid var(--accent-blue);
-    border-radius: 10px;
-    background-color: var(--white);
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-.form-group input:focus,
-.form-group select:focus {
-    border-color: var(--deep-blue);
-    outline: none;
-    box-shadow: 0 0 5px var(--deep-blue);
-}
-
-/* Radio Buttons */
-.form-row label {
-    margin-right: 15px;
-    color: #555;
-    font-weight: 500;
-}
-.form-row input[type="radio"] {
-    margin-right: 5px;
-}
-
-/* Button */
-.btn-submit,
-.btn-success,
-.btn-primary {
-    background: var(--deep-blue);
-    color: var(--white);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-.btn-submit:hover,
-.btn-success:hover,
-.btn-primary:hover {
-    background: #3a7ec4;
-    transform: scale(1.05);
-}
-
-/* Alert */
-.alert-success {
-    background-color: #dff0d8;
-    border: 1px solid #a1c99a;
-    color: #3c763d;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-/* Icon labels */
-.icon-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    color: var(--deep-blue);
-    margin-bottom: 0.3rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .form-container {
-        padding: 1rem;
-    }
-    .form-group input,
-    .form-group select {
-        font-size: 0.95rem;
-    }
-}
-
-    </style>
-</head>
-<body>
-
-<?php if (isset($_SESSION['error_message'])): ?>
-    <div id="errorMessage" class="alert alert-danger">
-        <?= $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
-    </div>
-<?php endif; ?>
-
-
-
-
-<!-- Formulaire d'ajout de trajet -->
-<form action="covoiturage.php" method="post">
-
-
-  <h3>Ajouter un Trajet</h3>
-  <input type="number" name="ID_Inscription" placeholder="ID Inscription" required class="form-control mb-2">
-  <select name="Adresse_Depart" required class="form-control mb-2">
-    <option value="">Adresse_Depart</option>
-    <option value="Parking de l'aéroport">Parking de l'aéroport</option>
-    <option value="Parking Tunis City">Parking Tunis City</option>
-    <option value="Parking Municipal">Parking Municipal</option>
-    <option value="Centre Urbain Nord">Centre Urbain Nord</option>
-  </select>
-  <input type="text" name="Adresse_Arrivee" placeholder="Adresse Arrivée" required class="form-control mb-2">
-  <input type="number" name="Nombre_Places" placeholder="Nombre de places" required class="form-control mb-2">
-  <input type="number" name="Prix" placeholder="Prix" step="0.1" required class="form-control mb-2">
-  <input type="number" name="Distance" placeholder="Distance (km)" required class="form-control mb-2">
-  <input type="text" name="Duree" placeholder="Durée estimée" required class="form-control mb-2">
-  <div class="form-group" style="display: flex; justify-content: space-between;">
-                    <button type="submit" name="addTrajet" class="btn btn-success">Ajouter</button>
-                </div>
-</form>
-<?php if (isset($_SESSION['last_trajet_id'])): ?>
-    <form method="post" style="margin-top: 20px;">
-        <input type="hidden" name="delete_id" value="<?= $_SESSION['last_trajet_id'] ?>">
-        <button type="submit" name="deleteTrajet" class="btn btn-danger">❌ Supprimer mon trajet</button>
-    </form>
-<?php endif; ?>
-
-
-
-<!-- Recherche -->
-<form method="GET" action="covoiturage.php" style="margin-top: 40px;">
-    <h2 class="text-center text-primary mb-4">🔍 Rechercher votre trajet</h2>
-    
-    <!-- Champ de recherche -->
-    <div class="form-group">
-        <label for="searchTel">ID Inscription</label>
-        <input type="number" name="searchTel" id="searchTel" class="form-control"  placeholder="entrer votre id ">
-    </div>
-    
-    <!-- Bouton de soumission -->
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Rechercher</button>
-    </div>
-</form>
-
-
-<!-- Lien vers Bootstrap 4 -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-<?php
-// Affichage du formulaire de modification
-if (isset($_GET['searchTel'])) {
-    $searchTel = $_GET['searchTel'];
-
-    $stmt = $pdo->prepare("SELECT * FROM inscription WHERE ID = ?");
-    $stmt->execute([$searchTel]);
-    $trajet = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($trajet) {
-?>
-
-<div class="container">
-    <div class="form-container">
-        <h2>✏️ Modifier votre Trajet</h2>
-        <form method="POST" action="covoiturage.php">
-
-            <div class="form-group">
-                <label for="ID_Inscription">ID Inscription</label>
-                <input type="number" id="ID_Inscription" name="ID_Inscription"
-                    value="<?= htmlspecialchars($trajet['ID']) ?>" 
-                    class="form-control" readonly>
-            </div>
-
-            <div class="form-group">
-    <label for="Adresse_Depart">Adresse_Depart</label>
-    <select id="Adresse_Depart" name="Adresse_Depart" class="form-control" required>
-        <option value="">Sélectionnez une adresse</option>
-        <option value="Parking de l'aéroport" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking de l'aéroport") ? 'selected' : '' ?>>Parking de l'aéroport</option>
-        <option value="Parking Tunis City" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking Tunis City") ? 'selected' : '' ?>>Parking Tunis City</option>
-        <option value="Parking Municipal" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Parking Municipal") ? 'selected' : '' ?>>Parking Municipal</option>
-        <option value="Centre Urbain Nord" <?= (isset($trajet['Adresse_Depart']) && $trajet['Adresse_Depart'] === "Centre Urbain Nord") ? 'selected' : '' ?>>Centre Urbain Nord</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="Adresse_Arrivee">Adresse d'arrivée</label>
-    <input type="text" id="Adresse_Arrivee" name="Adresse_Arrivee" class="form-control" required>
-</div>
-
-<div class="form-group">
-    <label for="Nombre_Places">Nombre de places</label>
-    <input type="number" id="Nombre_Places" name="Nombre_Places" class="form-control" required>
-</div>
-
-<div class="form-group">
-    <label for="Prix">Prix (DT)</label>
-    <input type="number" id="Prix" name="Prix" step="0.1" class="form-control" required>
-</div>
-
-<div class="form-group">
-    <label for="Distance">Distance (km)</label>
-    <input type="number" id="Distance" name="Distance" class="form-control" required>
-</div>
-
-<div class="form-group">
-    <label for="Duree">Durée (minutes)</label>
-    <input type="number" id="Duree" name="Duree" class="form-control" required>
-</div>
-
-
-<button type="submit" name="submit_update" class="btn-submit">✅ Modifier</button>
-
-            
-        </form>
-    </div>
-</div>
-
-<?php
-    } else {
-        echo "<p style='color:red;'>Aucune inscription trouvée avec ce numéro.</p>";
-    }
-}
-?>
-
-
-
-<?php
-
-
-if (isset($_POST['submit_update'])) {
-  $ID_Inscription = $_POST['ID_Inscription'];
-  $Adressedepart = $_POST['Adresse_Depart'];
-  $Adressearrivee = $_POST['Adresse_Arrivee'];
-  $NombrePlaces = $_POST['Nombre_Places'];
-  $Prix = $_POST['Prix'];
-  $Distance = $_POST['Distance'];
-  $Duree = $_POST['Duree'];
-
-  $check = $pdo->prepare("SELECT COUNT(*) FROM trajet WHERE ID_Inscription = ?");
-  $check->execute([$ID_Inscription]);
-
-  if ($check->fetchColumn() > 0) {
-      $update = $pdo->prepare("UPDATE trajet SET 
-          Adresse_Depart = ?, 
-          Adresse_Arrivee = ?, 
-          Nombre_Places = ?, 
-          Prix = ?, 
-          Distance = ?, 
-          Duree = ? 
-          WHERE ID_Inscription = ?");
-
-      $update->execute([
-          $Adressedepart,
-          $Adressearrivee,
-          $NombrePlaces,
-          $Prix,
-          $Distance,
-          $Duree,
-          $ID_Inscription
-      ]);
-
-      echo "<script>alert('Trajet mis à jour avec succès.'); window.location.href='covoiturage.php';</script>";
-  } else {
-      echo "<script>alert('Erreur : ID Inscription introuvable.');</script>";
-  }
-}
-
-
-
-?>
-
-
-<!-- Lien vers Bootstrap 4 -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const messageDiv = document.getElementById("message");
-
-  if (urlParams.has("success")) {
-    const success = urlParams.get("success");
-    messageDiv.style.display = "block";
-    messageDiv.style.color = success === "1" ? "green" : "red";
-    messageDiv.innerText = success === "1" ? "Ajout réussi !" : "Échec de l'ajout !";
-
-    setTimeout(() => {
-      messageDiv.style.display = "none";
-    }, 4000);
-  }
-</script>
-
-
-
-<!-- Formulaire d'ajout -->
-<div class="form-container mt-4">
-    <h4>🏭 Inscription de Covoiturage</h4>
-
-    <div class="container mt-4">
-        <div class="card-header bg-primary text-white">Ajouter une inscription</div>
-        <div class="card-body">
-            <?php if (isset($_GET['success']) && $_GET['success'] == 'true'): ?>
-                <div class="alert alert-success">Ajout avec succès !</div>
-            <?php endif; ?>
-
-            <form action="covoiturage.php" method="POST">
-                <div class="form-group">
-                    <div class="icon-label">
-                        <span>📞</span>
-                        <label>Telephone <span style="color:red">*</span></label>
-                    </div>
-                    <input type="tel" name="Telephone" id="Telephone" pattern="[0-9]{8,}" title="Entrez au moins 8 chiffres" required>
-                </div>
-
-                <div class="form-group">
-                    <div class="icon-label">
-                        <span>🏷️</span>
-                        <label>Categorie <span style="color:red">*</span></label>
-                    </div>
-                    <div class="form-row">
-                        <label><input type="radio" name="Categorie" value="Privé" checked> Privé</label>
-                        <label><input type="radio" name="Categorie" value="Public"> Public</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="icon-label">
-                        <span>📅</span>
-                        <label>DateReservation <span style="color:red">*</span></label>
-                    </div>
-                    <input type="datetime-local" name="DateReservation" required>
-                </div>
-
-                <div class="form-group">
-                    <div class="icon-label">
-                        <span>💳</span>
-                        <label>Paiement <span style="color:red">*</span></label>
-                    </div>
-                    <div class="form-row">
-                        <label><input type="radio" name="Paiement" value="Carte" checked> Carte</label>
-                        <label><input type="radio" name="Paiement" value="Espece"> Espece</label>
-                    </div>
-                </div>
-
-                <div class="form-group" style="display: flex; justify-content: space-between;">
-                    <button type="submit" name="addInscription" class="btn btn-success">Ajouter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Suppression -->
-<?php if (isset($_SESSION['last_insert_id'])): ?>
-    <form method="post" style="margin-top: 20px;">
-        <input type="hidden" name="delete_id" value="<?= $_SESSION['last_insert_id'] ?>">
-        <button type="submit" name="deleteInscription" class="btn btn-danger">❌ Supprimer mon inscription</button>
-    </form>
-<?php endif; ?>
-
-<!-- Recherche -->
-<form method="GET" action="covoiturage.php" style="margin-top: 40px;">
-    <h2 class="text-center text-primary mb-4">🔍 Rechercher votre inscription</h2>
-    
-    <!-- Champ de recherche -->
-    <div class="form-group">
-        <label for="searchTel">Numéro de téléphone</label>
-        <input type="tel" name="searchTel" id="searchTel" class="form-control" required pattern="[0-9]{8,}" title="10 chiffres requis" placeholder="Entrez un numéro de téléphone">
-    </div>
-    
-    <!-- Bouton de soumission -->
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Rechercher</button>
-    </div>
-</form>
-
-<!-- Lien vers Bootstrap 4 -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
-
-
-<?php
-// Affichage du formulaire de modification
-if (isset($_GET['searchTel'])) {
-    $searchTel = $_GET['searchTel'];
-
-    $stmt = $pdo->prepare("SELECT * FROM inscription WHERE Telephone = ?");
-    $stmt->execute([$searchTel]);
-    $inscription = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($inscription) {
-?>
-
-<div class="container">
-    <div class="form-container">
-        <h2>✏️ Modifier votre inscription</h2>
-        <form method="POST" action="covoiturage.php">
-            <input type="hidden" name="id_inscription" value="<?= $inscription['ID'] ?>">
-
-            <div class="form-group">
-                <label for="Telephone">Telephone</label>
-                <input type="tel" id="Telephone" name="Telephone"
-                    value="<?= htmlspecialchars($inscription['Telephone']) ?>"
-                    required pattern="[0-9]{8,}" placeholder="Entrez votre numéro de téléphone">
-            </div>
-
-            <div class="form-group">
-                <label for="Categorie">Categorie</label>
-                <select id="Categorie" name="Categorie" class="form-control" required>
-                    <option value="Public" <?= ($inscription['Categorie'] === 'Public') ? 'selected' : '' ?>>🚍 Public</option>
-                    <option value="Privé" <?= ($inscription['Categorie'] === 'Privé') ? 'selected' : '' ?>>🚗 Privé</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="DateReservation">DateRéservation</label>
-                <input type="datetime-local" id="DateReservation" name="DateReservation"
-                    value="<?= date('Y-m-d\TH:i', strtotime($inscription['DateReservation'])) ?>" required>
-            </div>
-
-
-            <div class="form-group">
-                <label for="Paiement"> Paiement</label>
-                <select id="Paiement" name="Paiement" class="form-control" required>
-                    <option value="Carte" <?= ($inscription['Paiement'] === 'Carte') ? 'selected' : '' ?>>💳 Carte</option>
-                    <option value="Espece" <?= ($inscription['Paiement'] === 'Espece') ? 'selected' : '' ?>>💵 Espèce</option>
-                </select>
-            </div>
-
-            <button type="submit" name="submit_update" class="btn-submit">✅ Modifier</button>
-        </form>
-    </div>
-</div>
-
-<?php
-    } else {
-        echo "<p style='color:red;'>Aucune inscription trouvée avec ce numéro.</p>";
-    }
-}
-
-// Traitement de la mise à jour
-if (isset($_POST['submit_update'])) {
-    $id = $_POST['ID_inscription'];
-    $telephone = $_POST['Telephone'];
-    $categorie = $_POST['Categorie'];
-    $paiement = $_POST['Paiement'];
-
-    $check = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE Telephone = ?");
-    $check->execute([$telephone]);
-    if ($check->fetchColumn() > 0) {
-        $update = $pdo->prepare("UPDATE inscription SET Telephone = ?, Categorie = ?, Paiement = ? WHERE ID = ?");
-        $update->execute([$telephone, $categorie, $paiement, $id]);
-
-        echo "<script>alert('Inscription mise à jour avec succès.'); window.location.href='covoiturage.php';</script>";
-    } else {
-        echo "<script>alert('Erreur : numéro de téléphone introuvable.');</script>";
-    }
-}
-?>
-
-
-<!-- Lien vers Bootstrap 4 -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<script>
-    // Masquer le message d'erreur après 4 secondes
-    setTimeout(function() {
-        var msg = document.getElementById('errorMessage');
-        if (msg) {
-            msg.style.display = 'none';
-        }
-    }, 4000);
-</script>
-
-
-
-</body>
-
-
-
-
-
-</body>
-</html>
-
-
-
- 
-
-
-        <!-- About Section -->
-    <section id="Covoiturage" class="covoiturage section">
-
-<div class="container">
-
-        <div class="row gy-4">
-          <!-- Colonne pour le texte -->
-          <div class="col-lg-6 content order-lg-first order-last" data-aos="fade-up" data-aos-delay="100">
-            <h3>Bienvenue !</h3>
-            <p>
-              Vivez une expérience unique avec notre programme de récompenses, restez informé grâce aux notifications, suivez vos trajets avec des statistiques, et profitez d’un support interactif. Planifiez facilement avec notre calendrier intelligent et laissez-vous guider par des suggestions personnalisées. Simple, fluide, et sur-mesure.
-            </p>
-            <ul>
-              <li>
-                <i class="bi bi-diagram-3"></i>
-                <div>
-                  <h5>Système de notifications</h5>
-                  <p>Essentiel pour tenir les utilisateurs informés en temps réel des mises à jour sur leurs trajets, des changements de planning ou des alertes importantes.</p>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-fullscreen-exit"></i>
-                <div>
-                  <h5>Suggestions intelligentes de trajet</h5>
-                  <p>Une fonctionnalité clé pour recommander des trajets optimisés en fonction des préférences des utilisateurs, de leur historique, et des conditions de circulation.</p>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-broadcast"></i>
-                <div>
-                  <h5>Système de notation et avis</h5>
-                  <p>Crucial pour instaurer un climat de confiance entre conducteurs et passagers, permettant à chacun d’évaluer l’expérience et de garantir un service de qualité.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        
-          <!-- Colonne pour l'image -->
-          <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/covoiturage.jpg" class="img-fluid" alt="Image de covoiturage">
-          </div>
-        </div>
-        
-
-        </div>
-
+    <div class="row">
+      <div class="col-lg-8" data-aos="fade-up">
+        <h3 class="text-start">Votre Évasion en Quelques Clics</h3>
+        <p class="lead text-start">
+          EasyParki révolutionne votre expérience de vacances en combinant réservation d'hôtels, planification d'itinéraires et gestion des transports en une seule plateforme intuitive. Dites adieu au stress et bonjour à des vacances parfaitement organisées.
+        </p>
       </div>
-
-    </section><!-- /About Section -->
-
+    </div>
     
-    <section id="FONC" class="fonc">
+    <div class="features-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="bi bi-geo-alt"></i>
+        </div>
+        <h4>Destinations Exclusives</h4>
+        <p>Accédez à une sélection soigneusement choisie le type de covoiturage , avec des options adaptées à tous les budgets.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="bi bi-calendar-check"></i>
+        </div>
+        <h4>Planification Intelligente</h4>
+        <p>Notre outil de planification vous permet d'organiser chaque détail de votre covoiturage.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="bi bi-arrow-repeat"></i>
+        </div>
+        <h4>Flexibilité Totale</h4>
+        <p>Modifiez ou annulez vos réservations facilement, avec des politiques flexibles conçues pour s'adapter à vos besoins changeants.</p>
+      </div>
+    </div>
+  </div>
+</section><!-- End About Section -->
+
+    <!-- Stats Section - Redesigned -->
+    <section id="stats" class="stats section">
       <div class="container" data-aos="fade-up">
-    
-        <!-- Section Title -->
-        <div class="section-title">
-          <h2>Fonctionnalités</h2>
-          <p>Un aperçu rapide des fonctionnalités principales de notre plateforme</p>
-        </div>
-    
-        <!-- Images alignées horizontalement -->
-        <div class="row text-center mb-4">
-          <div class="col-md-4">
-            <img src="assets/img/solde.png.jpg" alt="Solde" class="img-fluid mb-2" style="max-height: 100px;">
-            <h5>Solde</h5>
+        <div class="row gy-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="1500" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Covoiturage Planifiées</p>
+            </div>
           </div>
-          <div class="col-md-4">
-            <img src="assets/img/calendrier.png.jpg" alt="Calendrier" class="img-fluid mb-2" style="max-height: 100px;">
-            <h5>Calendrier</h5>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="320" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Trajets Uniques</p>
+            </div>
           </div>
-          <div class="col-md-4">
-            <img src="assets/img/state.png.avif" alt="Statistiques" class="img-fluid mb-2" style="max-height: 100px;">
-            <h5>Statistiques</h5>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="220" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Covoiturage Partenaires</p>
+            </div>
           </div>
-        </div>
-    
-        <!-- Liste de fonctionnalités -->
-        <div class="row">
-          <div class="col-md-12">
-            <ul style="list-style-type: disc; padding-left: 20px;">
-              <li>Programme de récompense pour les covoiturages</li>
-              <li>Système de notification</li>
-              <li>Génération d'un historique en PDF</li>
-              <li>Statistiques</li>
-              <li>Système de notification et avis</li>
-              <li>Carte interactive</li>
-              <li>Calendrier</li>
-              <li>Suggestion intelligente de trajets</li>
-            </ul>
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Heures d'Assistance</p>
+            </div>
           </div>
         </div>
-    
       </div>
-    </section>
-    
+    </section><!-- End Stats Section -->
 
 
-
-
-    <!-- Team Section -->
-    <section id="nos sponsors" class="sponsors section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <span>Nos sponsors<br></span>
-        <h2>Nos sponsors</h2>
-        <p>Nous remercions chaleureusement nos sponsors pour leur soutien précieux, contribuant activement au succès de notre projet.</p>
-      </div><!-- End Section Title -->
-
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
       <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <img src="assets/img/oreedoo.jpg" class="img-fluid" alt="">
-              <div class="member-content">
-                <h4>Ooredoo Tunisie</h4>
-                
-                <p>
-                  Offrir des réductions sur les forfaits mobiles et promouvoir l'usage des données mobiles pour faciliter la connexion des utilisateurs.
-
-
-                </p>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <img src="assets/img/biat.jpg" class="img-fluid" alt="">
-              <div class="member-content">
-                <h4>BIAT</h4>
-                
-                <p>
-                  pourrait sponsoriser un service de covoiturage en proposant des solutions de paiement mobile, des prêts pour l'achat de véhicules et des avantages financiers pour les utilisateurs réguliers.
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <img src="assets/img/carefour.jpg" class="img-fluid" alt="">
-              <div class="member-content">
-                <h4>Carrefour Tunisie</h4>
-                
-                <p>
-                  Fournir des promotions ou des bons d'achat pour encourager la participation des utilisateurs tout en boostant les ventes.
-
-                </p>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
+        <div class="section-title" data-aos="fade-up">
+          <span>Comment ça marche</span>
+          <h2>Planifiez Vos Covoiturages en 2 Étapes</h2>
+          <p>Notre processus simple vous permet d'organiser vos destinations en quelques minutes</p>
         </div>
-
+        
+        <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h3>Choisissez Votre Destination</h3>
+              <p>Parcourez notre sélection de destinations  sélectionnés pour trouver celui qui correspond à vos besoins.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-4">
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h3>Personnalisez Votre Trajet</h3>
+              <p>Utilisez notre outil de planification pour  plus de comfort.</p>
+            </div>
+          </div>
+          
+          <div class="col-lg-4">
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h3>Confirmez et Profitez</h3>
+              <p>Finalisez votre réservation et recevez tous les détails de votre voyage en un seul endroit. Il ne reste plus qu'à profiter !</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </section><!-- End How It Works -->
 
-    </section><!-- /Team Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section dark-background">
-
-      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
+    <!-- Testimonials Section - Redesigned -->
+    <section id="testimonials" class="testimonials section">
+      <div class="container section-title" data-aos="fade-up">
+        <span>Témoignages</span>
+        <h2>Ce que disent nos clients</h2>
+        <p>Découvrez les expériences de ceux qui ont voyagé avec nous</p>
+      </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="swiper init-swiper">
           <script type="application/json" class="swiper-config">
             {
@@ -1038,228 +1000,647 @@ if (isset($_POST['submit_update'])) {
             }
           </script>
           <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
+  <!-- Slide 1 - Version améliorée -->
+  <div class="swiper-slide">
+    <div class="testimonial-card" style="background: linear-gradient(135deg, rgba(13,63,114,0.1) 0%, rgba(255,255,255,0.05) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+      <div class="testimonial-header">
+        <img src="assets/img/ee.png" class="testimonial-img" alt="Emna Ben Hassine">
+        <div class="testimonial-author">
+          <h3>Emna Ben Hassine</h3>
+          <span>Voyageuse Premium</span>
         </div>
-
+        <div class="quote-icon">
+          <i class="bi bi-quote" style="color: var(--accent-color); font-size: 2rem; opacity: 0.2;"></i>
+        </div>
       </div>
+      <div class="stars">
+        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+      </div>
+      <p class="testimonial-text">
+        "Une expérience inoubliable avec EasyParki. La planification des vacances est devenue un jeu d'enfant grâce à leur interface intuitive et leurs conseils personnalisés."
+      </p>
+      <div class="testimonial-footer">
+        <i class="bi bi-pin-map-fill" style="color: var(--accent-color);"></i> 
+        <small>Séjour à Bali, Août 2023</small>
+      </div>
+    </div>
+  </div>
 
-    </section><!-- /Testimonials Section -->
+  <!-- Slide 2 -->
+  <div class="swiper-slide">
+    <div class="testimonial-card" style="background: linear-gradient(135deg, rgba(13,63,114,0.1) 0%, rgba(255,255,255,0.05) 100%);">
+      <div class="testimonial-header">
+        <img src="assets/img/ss.png" class="testimonial-img" alt="Sarah Jardak">
+        <div class="testimonial-author">
+          <h3>Mariem Ben Mustapha</h3>
+          <span>Famille de 4</span>
+        </div>
+        <div class="quote-icon">
+          <i class="bi bi-quote" style="color: var(--accent-color); font-size: 2rem; opacity: 0.2;"></i>
+        </div>
+      </div>
+      <div class="stars">
+        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+      </div>
+      <p class="testimonial-text">
+        "En tant que maman organisant nos trajet, EasyParki m'a fait gagner un temps précieux. Tout est centralisé et les recommandations d'activités pour enfants sont parfaites !"
+      </p>
+      <div class="testimonial-footer">
+        <i class="bi bi-pin-map-fill" style="color: var(--accent-color);"></i> 
+        <small>Trajet a Hammmet, Juillet 2023</small>
+      </div>
+    </div>
+  </div>
 
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
+  <!-- Slide 3 -->
+  <div class="swiper-slide">
+    <div class="testimonial-card" style="background: linear-gradient(135deg, rgba(13,63,114,0.1) 0%, rgba(255,255,255,0.05) 100%);">
+      <div class="testimonial-header">
+        <img src="assets/img/hh.png" class="testimonial-img" alt="Habiba Eya">
+        <div class="testimonial-author">
+          <h3>Emna Karray</h3>
+          <span>Trajet solo </span>
+        </div>
+        <div class="quote-icon">
+          <i class="bi bi-quote" style="color: var(--accent-color); font-size: 2rem; opacity: 0.2;"></i>
+        </div>
+      </div>
+      <div class="stars">
+        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+      </div>
+      <p class="testimonial-text">
+        "Je recommande EasyParki à tous les Trajet solo ! Leur système de planification m'a senti du comfort  que je n'aurais jamais trouvées seule."
+      </p>
+      <div class="testimonial-footer">
+        <i class="bi bi-pin-map-fill" style="color: var(--accent-color);"></i> 
+        <small>Séjour à l'ile de reve , Avril 2023</small>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <span>Foire Aux Questions</span>
-        <h2>Foire Aux Questions</h2>
-        <p>Voici les réponses aux questions les plus courantes concernant notre service de covoiturage.</p>
-      </div><!-- End Section Title -->
+<!-- Style personnalisé pour les témoignages -->
+<style>
+  .testimonial-card {
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(13, 63, 114, 0.1);
+    transition: all 0.4s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(13, 63, 114, 0.2);
+  }
+
+  .testimonial-card:hover::before {
+    opacity: 1;
+  }
+
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .testimonial-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-right: 15px;
+  }
+
+  .testimonial-author h3 {
+    margin: 0;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+  }
+
+  .testimonial-author span {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .quote-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .stars {
+    color: #FFC107;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+
+  .testimonial-text {
+    font-style: italic;
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .testimonial-text::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-size: 3rem;
+    color: var(--accent-color);
+    opacity: 0.2;
+    font-family: serif;
+  }
+
+  .testimonial-footer {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+
+  /* Animation des slides */
+  .swiper-slide {
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: scale(0.95);
+  }
+
+  .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+    </section><!-- End Testimonials Section -->
+
+    <!-- Section Inspiration + Newsletter Redesign -->
+<section id="inspiration-cta" class="inspiration-section">
+  <div class="container-fluid p-0">
+    <div class="row g-0">
+      <!-- Colonne Inspiration (50%) -->
+      <div class="col-lg-6 inspiration-col" style="background-image: url('assets/img/travel-inspiration.jpg');">
+        <div class="inspiration-overlay">
+          <div class="inspiration-content" data-aos="fade-right">
+            <h2>Besoin d'Inspiration ?</h2>
+            <p class="lead">Découvrez nos guides voyages exclusifs et itinéraires personnalisés</p>
+            
+            <div class="inspiration-grid">
+              <div class="inspiration-card">
+                <i class="bi bi-compass"></i>
+                <h4>Itinéraires Thématiques</h4>
+                <p>Roadtrips, voyages en famille, escapades romantiques...</p>
+              </div>
+              
+              <div class="inspiration-card">
+                <i class="bi bi-camera"></i>
+                <h4>Gallerie d'Inspiration</h4>
+                <p>Les plus belles photos de nos voyageurs</p>
+              </div>
+            </div>
+            
+            <a href="#" class="btn btn-outline-light btn-lg mt-3">
+              Explorer les idées <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
       
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
-            <div class="faq-container">
-      
-              <div class="faq-item faq-active" data-aos="fade-up" data-aos-delay="200">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3>Comment puis-je réserver un trajet en covoiturage ?</h3>
-                <div class="faq-content">
-                  <p>Il vous suffit de rechercher un trajet via notre plateforme, de choisir une offre correspondant à vos critères, puis de cliquer sur "Réserver". Vous recevrez ensuite une confirmation par email ou notification.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-      
-              <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3>Le service est-il payant pour les passagers ?</h3>
-                <div class="faq-content">
-                  <p>Oui, une participation aux frais est demandée selon le trajet choisi. Le montant est affiché avant la réservation, et le paiement se fait en ligne ou directement auprès du conducteur selon les préférences.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-      
-              <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3>Puis-je annuler ma réservation ?</h3>
-                <div class="faq-content">
-                  <p>Oui, vous pouvez annuler votre réservation via votre espace utilisateur. Selon le délai, un remboursement partiel ou total peut être effectué.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-      
-              <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3>Comment puis-je devenir conducteur ?</h3>
-                <div class="faq-content">
-                  <p>Pour proposer des trajets, vous devez créer un compte conducteur, ajouter votre véhicule et publier vos trajets. Notre équipe validera votre profil avant mise en ligne.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-      
-              <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
-                <i class="faq-icon bi bi-question-circle"></i>
-                <h3>Les trajets sont-ils assurés ?</h3>
-                <div class="faq-content">
-                  <p>Oui, chaque conducteur doit avoir une assurance valide pour couvrir les passagers. Nous recommandons également à tous les utilisateurs de consulter nos conditions générales pour plus de détails.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-      
+      <!-- Colonne Newsletter Redesign (50%) -->
+      <div class="col-lg-6 newsletter-col" style="background-color: var(--primary-dark);">
+        <div class="newsletter-wrapper" data-aos="fade-left">
+          <div class="newsletter-header">
+            <i class="bi bi-envelope-open newsletter-icon"></i>
+            <h2>Votre Guide Voyage Personnalisé</h2>
+            <p>Recevez chaque mois des idées adaptées à vos préférences</p>
+          </div>
+          
+          <form class="modern-newsletter-form">
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Votre email" required>
+              <button class="btn btn-primary" type="submit">
+                <span>S'abonner</span>
+                <i class="bi bi-send-fill ms-2"></i>
+              </button>
+            </div>
+            
+            <div class="form-footer">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletter-check" checked>
+                <label class="form-check-label" for="newsletter-check">
+                  J'accepte de recevoir des conseils personnalisés
+                </label>
+              </div>
+            </div>
+          </form>
+          
+          <div class="trust-badges">
+            <div class="badge-item">
+              <i class="bi bi-shield-lock"></i>
+              <span>100% sécurisé</span>
+            </div>
+            <div class="badge-item">
+              <i class="bi bi-x-circle"></i>
+              <span>Désabonnement facile</span>
             </div>
           </div>
         </div>
       </div>
-      
+    </div>
+  </div>
+</section>
+
+<!-- Nouveau CTA Immersif -->
+<section id="immersion-cta" class="immersion-cta">
+  <div class="cta-video-wrapper">
+    <video autoplay muted loop playsinline>
+      <source src="assets/videos/beach-waves.mp4" type="video/mp4">
+    </video>
+    <div class="cta-video-overlay"></div>
+  </div>
+  
+  <div class="cta-content-wrapper">
+    <div class="container">
+      <div class="cta-content" data-aos="zoom-in">
+        <h2>Votre Prochaine Aventure Vous Attend</h2>
+        <p class="cta-subtitle">Nos experts sont prêts à créer le voyage parfait pour vous</p>
+        
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary btn-lg">
+            <i class="bi bi-chat-square-text me-2"></i> Discuter avec un expert
+          </a>
+          <a href="#" class="btn btn-outline-light btn-lg ms-3">
+            <i class="bi bi-calendar2-plus me-2"></i> Planifier en ligne
+          </a>
+        </div>
+        
+        <div class="cta-features">
+          <div class="feature-item">
+            <i class="bi bi-check-circle"></i>
+            <span>Conseils 100% personnalisés</span>
+          </div>
+          <div class="feature-item">
+            <i class="bi bi-check-circle"></i>
+            <span>Devis gratuit sous 24h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Style pour la nouvelle section inspiration + newsletter */
+  .inspiration-section {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    margin: 80px auto;
+    max-width: 1400px;
+  }
+  
+  .inspiration-col, .newsletter-col {
+    min-height: 500px;
+    position: relative;
+  }
+  
+  .inspiration-col {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .inspiration-overlay {
+    background: linear-gradient(135deg, rgba(13,63,114,0.85) 0%, rgba(10,29,55,0.😎 100%);
+    padding: 60px;
+    height: 100%;
+    color: white;
+  }
+  
+  .inspiration-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+  }
+  
+  .inspiration-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+  }
+  
+  .inspiration-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.15);
+  }
+  
+  .inspiration-card i {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    display: block;
+  }
+  
+  .newsletter-wrapper {
+    padding: 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .newsletter-header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+  }
+  
+  .newsletter-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+  }
+  
+  .modern-newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .input-group {
+    display: flex;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  
+  .form-control {
+    padding: 15px 25px;
+    border: none;
+    background: rgba(255,255,255,0.9);
+  }
+  
+  .btn-primary {
+    background: var(--accent-color);
+    border: none;
+    padding: 15px 30px;
+    white-space: nowrap;
+  }
+  
+  .form-footer {
+    margin-top: 15px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+  }
+  
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+  }
+  
+  /* Style pour le nouveau CTA immersif */
+  .immersion-cta {
+    position: relative;
+    height: 600px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 80px auto;
+    max-width: 1400px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  }
+  
+  .cta-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .cta-video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .cta-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(13,63,114,0.7) 0%, rgba(10,29,55,0.6) 100%);
+  }
+  
+  .cta-content-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cta-content {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .cta-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .cta-features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 992px) {
+    .inspiration-section .row {
+      flex-direction: column;
+    }
+    
+    .inspiration-col, .newsletter-col {
+      min-height: auto;
+      padding: 60px 30px;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .immersion-cta {
+      height: auto;
+      padding: 100px 0;
+    }
+  }
+</style>
+    <!-- FAQ Section - Redesigned -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <span>FAQ</span>
+          <h2>Questions Fréquentes</h2>
+          <p>Trouvez les réponses aux questions les plus posées sur nos services de vacances</p>
+        </div>
+        
+        <div class="row justify-content-center">
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-item">
+              <h3>Comment réserver un hôtel pour mes vacances ?<i class="faq-toggle bi bi-chevron-down"></i></h3>
+              <div class="faq-content">
+                <p>Pour réserver un hôtel, rendez-vous dans la section "Voir Les Hôtels", sélectionnez votre destination et vos dates, puis choisissez parmi les options disponibles. Vous pouvez effectuer le paiement directement en ligne et recevoir une confirmation immédiate.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <h3>Puis-je modifier ou annuler ma réservation ?<i class="faq-toggle bi bi-chevron-down"></i></h3>
+              <div class="faq-content">
+                <p>Oui, vous pouvez modifier ou annuler votre réservation jusqu'à 48 heures avant la date d'arrivée sans frais (sauf conditions particulières de l'hôtel). Connectez-vous à votre compte et accédez à la section "Mes Réservations" pour effectuer les modifications.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <h3>Comment fonctionne l'outil de planification ?<i class="faq-toggle bi bi-chevron-down"></i></h3>
+              <div class="faq-content">
+                <p>Notre outil de planification vous permet d'organiser chaque jour de vos vacances : hébergement, activités, transports et restaurants. Vous pouvez sauvegarder plusieurs versions et partager vos plans avec vos compagnons de voyage.</p>
+              </div>
+            </div>
+            
+            <div class="faq-item">
+              <h3>Y a-t-il des frais cachés ?<i class="faq-toggle bi bi-chevron-down"></i></h3>
+              <div class="faq-content">
+                <p>Non, tous les prix affichés incluent les taxes et frais obligatoires. Nous nous engageons à une transparence totale. Toute information supplémentaire sur les éventuels frais locaux (taxe de séjour, etc.) vous sera clairement communiquée avant la confirmation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End FAQ Section -->
 
   </main>
 
-  <footer id="footer" class="footer dark-background">
+  <!-- Floating Button -->
+  <a href="addplanVacancefront.php" class="floating-btn" data-aos="fade-up" data-aos-delay="300" title="Commencer à planifier">
+    <i class="bi bi-calendar-plus"></i>
+  </a>
 
+  <footer id="footer" class="footer">
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
             <span class="sitename">EasyParki</span>
           </a>
-          <p>Solution innovante de gestion de stationnement intelligent et de mobilité électrique. Rejoignez la révolution des déplacements urbains durables !</p>
+          <p>EasyParki est une plateforme intelligente et centralisée qui facilite la mobilité urbaine durable en offrant des solutions intégrées pour le stationnement, le covoiturage, les transports publics, la recharge électrique et la gestion d'événements.</p>
           <div class="social-links d-flex mt-4">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-car-front-fill"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-chat-dots-fill"></i></a>
+            <a href=""><i class="bi bi-twitter"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-  
+
         <div class="col-lg-2 col-6 footer-links">
           <h4>Liens utiles</h4>
           <ul>
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="pricing.html">Abonnements</a></li>
-            <li><a href="cgv.html">CGU</a></li>
+            <li><a href="about.php">À propos de nous</a></li>
+            <li><a href="services.html">Nos services</a></li>
+            <li><a href="terms.html">Conditions d'utilisation</a></li>
+            <li><a href="privacy.html">Politique de confidentialité</a></li>
           </ul>
         </div>
-  
+
         <div class="col-lg-2 col-6 footer-links">
-          <h4>Nos Services</h4>
+          <h4>Nos services</h4>
           <ul>
-            <li><a href="#">Recherche de trajets</a></li>
-            <li><a href="#">Réservation et paiement</a></li>
-            <li><a href="#">Géolocalisation</a></li>
-            
+            <li><a href="Stationnement.html">Stationnement</a></li>
+            <li><a href="transport public.html">Vacances</a></li>
+            <li><a href="Covoiturage.html">Covoiturage</a></li>
+            <li><a href="Recharge.html">Recharges électriques</a></li>
+            <li><a href="Evenement.html">Événements</a></li>
           </ul>
         </div>
-  
+
         <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Nous contacter</h4>
-          <p>15 Rue de l'Innovation</p>
-          <p>75015 Paris, France</p>
-          <p class="mt-4"><strong>Téléphone :</strong> <span>+33 1 84 20 36 00</span></p>
-          <p><strong>Email :</strong> <span>contact@easyparki.fr</span></p>
-          <p><i class="bi bi-clock"></i> Lun-Ven : 7h-21h</p>
+          <h4>Contactez-nous</h4>
+          <p>18, rue de l'Usine <br>
+            ZI Aéroport Charguia II 2035 Ariana<br>
+            Tunisie</p>
+          <p class="mt-4"><strong>Téléphone :</strong> <span>+216 50 084 004</span></p>
+          <p><strong>Email :</strong> <span>contact@easyparki.com</span></p>
         </div>
-  
       </div>
     </div>
-  
+
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">EasyParki</strong> <span>Tous droits réservés</span></p>
       <div class="credits">
-        Template créé par <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designé par <a href="#">Asteria</a>
       </div>
     </div>
-  
   </footer>
-  
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
+
   <!-- Preloader -->
   <div id="preloader"></div>
-  
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -1267,10 +1648,59 @@ if (isset($_POST['submit_update'])) {
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  
+
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  
-  </body>
-  </html>
-          
+
+  <script>
+    // FAQ Toggle
+    document.querySelectorAll('.faq-item h3').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const content = question.nextElementSibling;
+        const icon = question.querySelector('.faq-toggle');
+        
+        item.classList.toggle('active');
+        
+        if (item.classList.contains('active')) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          icon.classList.replace('bi-chevron-down', 'bi-chevron-up');
+        } else {
+          content.style.maxHeight = '0';
+          icon.classList.replace('bi-chevron-up', 'bi-chevron-down');
+        }
+        
+        // Close other open items
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.faq-content').style.maxHeight = '0';
+            otherItem.querySelector('.faq-toggle').classList.replace('bi-chevron-up', 'bi-chevron-down');
+          }
+        });
+      });
+    });
+    
+    // Initialize AOS animation
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
+    });
+    
+    // Initialize PureCounter
+    new PureCounter();
+    
+    // Initialize Swiper
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.init-swiper').forEach(swiperEl => {
+        const config = JSON.parse(swiperEl.querySelector('.swiper-config').textContent);
+        new Swiper(swiperEl, config);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
